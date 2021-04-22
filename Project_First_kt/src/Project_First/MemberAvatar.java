@@ -20,16 +20,19 @@ public class MemberAvatar extends JDialog {
 	MembershipEvent mse = null;
 	//생성자
 	public MemberAvatar() {
-		this.initDisplay();
 	}
 	public MemberAvatar(MembershipEvent mse) {
 		this.mse = mse;
+	}
+	public MemberAvatar(MemberShip ms) {
+		this.ms = ms;
+		this.initDisplay();
 	}
 	//화면처리부
 	public void initDisplay() {
 //		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
-		mse = new MembershipEvent(this);
+		mse = new MembershipEvent(this, ms);
 		jp_emoticon.setLayout(gl_emoticon);
 		for(int i=0;i<imgfile.length;i++) {
 			img[i] = new ImageIcon(imgPath+imgfile[i]);
@@ -42,7 +45,6 @@ public class MemberAvatar extends JDialog {
 		this.setLocation(920, 250);
 		this.setSize(600,200);
 		this.setVisible(true);
-		System.out.println(ms.avatar);
 	}
 	//메인메소드
 	public static void main(String[] args) {

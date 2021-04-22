@@ -10,6 +10,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -48,8 +49,8 @@ public class YeelJungView extends JFrame {
 	JLabel			jlb_name		= null;
 	JButton			jbtn_in			= new JButton("출근");
 	JButton			jbtn_attendance	= new JButton("출결");
-	JLabel			avatar			= new JLabel(new ImageIcon("src\\images\\lion11.png"));
-//	JButton			avatar			= new JButton(new ImageIcon("src\\Project_First\\lion11.png"));
+//	JLabel			avatar			= new JLabel(new ImageIcon("src\\images\\lion11.png"));
+	JLabel			avatar			= null;
 	
 	JPanel			jp_plan			= new JPanel(null);
 	JLabel			jlb_plan		= null;
@@ -65,6 +66,7 @@ public class YeelJungView extends JFrame {
 	String	name	= null;
 	String	main	= null;
 	String	memo	= null;
+	int avt = 0;
 	int dayweek = 0;
 //	int		yy		= 0;
 //	int		mm		= 0;
@@ -85,9 +87,11 @@ public class YeelJungView extends JFrame {
 	}
 	//
 	
-	public void initDisplay(String name, String mem_id) {
+	public void initDisplay(String name, String mem_id, int avt) {
+		this.avt = avt;
 		this.name = name;
 		this.ID = mem_id;
+		System.out.println(avt+" "+name+" "+ID);
 		yje = new YeelJungEvent(this);
 		ts = new TimeServer();
 		tc = new TimeClient();
@@ -116,7 +120,25 @@ public class YeelJungView extends JFrame {
 				jlb2.setForeground(Color.blue);
 			}
 		}
-
+		
+		switch (avt) {
+		case 1:
+			avatar	= new JLabel(new ImageIcon("src\\images\\lion22.png"));
+			break;
+		case 2:
+			avatar	= new JLabel(new ImageIcon("src\\images\\lion33.png"));
+			break;
+		case 3:
+			avatar	= new JLabel(new ImageIcon("src\\images\\lion44.png"));
+			break;
+		case 4:
+			avatar	= new JLabel(new ImageIcon("src\\images\\lion55.png"));
+			break;
+		default:
+			avatar	= new JLabel(new ImageIcon("src\\images\\lion11.png"));
+			break;
+		}
+		
 		jbtn_left.addActionListener(yje);
 		jbtn_right.addActionListener(yje);
 		jbtn_search.addActionListener(yje);
@@ -173,7 +195,6 @@ public class YeelJungView extends JFrame {
 		this.setLocation(510, 250);
 		this.setVisible(true);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-
 	}
 
 	void RefreshDate() {
@@ -235,7 +256,7 @@ public class YeelJungView extends JFrame {
 	
 	public static void main(String[] args) {
 		YeelJungView a = new YeelJungView();
-		a.initDisplay("강찬영", "test");
+		a.initDisplay("강찬영", "test", 0);
 		
 	}
 }

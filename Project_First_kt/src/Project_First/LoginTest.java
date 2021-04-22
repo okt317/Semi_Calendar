@@ -130,10 +130,12 @@ public class LoginTest implements ActionListener{
 				}
 				else {
 					yjv = new YeelJungView(md);
-					String name = md.load_profile(mem_id);
+					md.load_profile(mem_id);
+					String name = md.load_name;
+					int avt = md.load_avt;
 					JOptionPane.showMessageDialog(null, name+"님이 로그인 되었습니다");
 					jf.dispose();
-					yjv.initDisplay(name,mem_id);
+					yjv.initDisplay(name,mem_id, avt);
 				}
 			} catch (Exception e2) {
 				e2.printStackTrace();
