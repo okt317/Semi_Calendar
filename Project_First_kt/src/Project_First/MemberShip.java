@@ -53,15 +53,15 @@ public class MemberShip extends JDialog implements ActionListener {
 
    // 생성자
    public MemberShip() {
-//      initDisplay();
+      initDisplay();
    }
 //   public MemberShip(MembershipEvent mse) {
 //	   this.mse = mse;
 //   }
    public static void main(String[] args) {      
-//	   new MemberShip();
-	   MemberShip ms = new MemberShip();
-	   ms.initDisplay();
+	   new MemberShip();
+//	   MemberShip ms = new MemberShip();
+//	   ms.initDisplay();
    }
    
 

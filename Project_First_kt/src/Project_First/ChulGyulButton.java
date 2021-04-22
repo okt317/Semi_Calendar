@@ -15,11 +15,13 @@ public class ChulGyulButton extends JDialog implements ActionListener{
 	JButton toi = new JButton("퇴근");
 	JPanel jp = new JPanel();
 	ChulGyulDao cgd = null;
+	YeelJungView yjv = null;
+	YeelJungEvent yje = null;
 	
 	int Y =  0;
 	int M =  0;
 	int D =  0;
-	String hm = "";
+	String now = "";
 	
 	SimpleDateFormat format1 = 
 			new SimpleDateFormat("yyyy MM dd hh:mm");
@@ -42,8 +44,8 @@ public class ChulGyulButton extends JDialog implements ActionListener{
 		Y = Integer.parseInt(tokens[0]);
 		M =  Integer.parseInt(tokens[1]);
 		D =  Integer.parseInt(tokens[2]);
-		hm = tokens[3]; 
-		System.out.println(Y+M+D+hm);
+		now = tokens[3]; 
+		System.out.println(Y+M+D+now);
 		
 	}
 	public void initDisplay() {
@@ -60,18 +62,35 @@ public class ChulGyulButton extends JDialog implements ActionListener{
 		this.setVisible(true);
 		
 	}
-
-	public static void main(String[] args) {
-		ChulGyulButton sg = new ChulGyulButton();
-		sg.tiktok();
-		sg.initDisplay();
+	ChulGyulButton(YeelJungEvent yje){
+		this.yje = yje;
 	}
+	ChulGyulButton(YeelJungView yjv){
+		this.yjv = yjv;
+	}
+	ChulGyulButton(String id){
+		tiktok();
+		cgd = new ChulGyulDao();
+		System.out.println(Y+" "+M+" "+D+" "+now);
+		String msg = cgd.cal_chul(id, Y, M, D, now);
+		if("출근완료".equals(msg)){
+			JOptionPane.showMessageDialog(null,time2+" 출근이 확인되었습니다 ");
+		}else if("퇴근완료".equals(msg)) {
+			JOptionPane.showMessageDialog(null,time2+" 퇴근이 확인되었습니다 ");
+		}else if("중복".equals(msg)) {
+			JOptionPane.showMessageDialog(null,"이미 처리되었습니다","안돼돌아가",JOptionPane.ERROR_MESSAGE);
+		}
+		
+	}
+	
+//	public static void main(String[] args) {
+//	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		cgd = new ChulGyulDao();
 		String test = "test";
-		System.out.println(Y+" "+M+" "+D+" "+hm);
-		String msg = cgd.cal_chul(test, Y, M, D, hm);
+		System.out.println(Y+" "+M+" "+D+" "+now);
+		String msg = cgd.cal_chul(test, Y, M, D, now);
 		if("출근완료".equals(msg)){
 			JOptionPane.showMessageDialog(null,time2+" 출근이 확인되었습니다 ");
 		}else if("퇴근완료".equals(msg)) {

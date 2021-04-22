@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 public class MemberAvatar extends JDialog {
 	
 	//선언부
-	String imgPath = "C:\\git_Project_First\\Project_First\\Project_First_kt\\src\\images\\";
+	String imgPath = "src\\images\\";
 	String imgfile[] = {"lion11.png","lion22.png","lion33.png","lion44.png","lion55.png"};
 	JPanel jp_emoticon = new JPanel();
 	GridLayout gl_emoticon = new GridLayout(1,5,2,2);

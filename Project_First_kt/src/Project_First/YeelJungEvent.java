@@ -11,6 +11,7 @@ public class YeelJungEvent implements ActionListener {
 	YeelJungDialog	searchDialog	= null;
 	YJattendance yja = null;
 	ChulGyul cg = null;
+	ChulGyulDao cgd = null;
 	MemberDao md = null;
 	int date = 0;
 
@@ -21,7 +22,7 @@ public class YeelJungEvent implements ActionListener {
 	public YeelJungEvent(YJattendance yja) {
 		this.yja=yja;
 	}
-
+	
 	@Override
 	public void actionPerformed(ActionEvent ae) {
 		Object obj = ae.getSource();
@@ -54,6 +55,7 @@ public class YeelJungEvent implements ActionListener {
 		
 		if (obj == yjv.jbtn_in) {
 			System.out.println("출근");
+			new ChulGyulButton(yjv.ID);
 		}
 		
 		

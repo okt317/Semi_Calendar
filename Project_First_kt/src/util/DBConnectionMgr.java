@@ -11,8 +11,8 @@ public class DBConnectionMgr {
 //   private final static String _URL    = "jdbc:oracle:thin:@172.30.1.51:1521:orcl11";
 //   private final static String _URL    = "jdbc:oracle:thin:@192.168.0.22:1521:orcl11";
    private final static String _URL    = "jdbc:oracle:thin:@localhost:1521:orcl11";
-//   private final static String _USER   = "SCOTT";
-   private final static String _USER   = "GOBUK";
+   private final static String _USER   = "SCOTT";
+//   private final static String _USER   = "GOBUK";
    private final static String _PW     = "tiger";
    private static DBConnectionMgr dbMgr = null;
    Connection con = null;

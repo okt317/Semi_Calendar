@@ -33,7 +33,7 @@ public class LoginTest implements ActionListener{
    Font font1 = new Font("궁서체",Font.BOLD,18);
    //이미지관련
    JLabel jl_image = null;
-   String imgPath 	 = "C:\\git_Project_First\\Project_First\\Project_First_kt\\src\\Project_First\\";
+   String imgPath 	 = "src\\images\\";
    ImageIcon ig = new ImageIcon (imgPath+"pp.png");//(imgPath + "main.png");
    Image img = ig.getImage();
    Image changeImg = img.getScaledInstance(400, 200, Image.SCALE_SMOOTH);
