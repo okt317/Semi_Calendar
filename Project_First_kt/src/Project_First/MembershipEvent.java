@@ -48,7 +48,8 @@ public class MembershipEvent implements ActionListener {
 			ms.pic_avatar.setIcon(mav.img[3]);
 			ms.avatar = 3;
 		}
-		else if(obj == mav.pic[4]) {
+		else if(obj == mav.pic[4]) 
+		{
 			JOptionPane.showMessageDialog(null, "라이언5로 바뀌었습니다");
 			mav.dispose();
 			ms.pic_avatar.setIcon(mav.img[4]);

@@ -100,7 +100,7 @@ public class YeelJungView extends JFrame {
 		jp_up.add(jlb);
 		jp_up.add(jbtn_right);
 		jp_up.add(jlb_void2);
-		jp_up.add(jbtn_search);
+//		jp_up.add(jbtn_search);
 
 		for (int i = 0; i < 42; i++) {
 			jbtn_nalja[i] = new JButton("" + (i + 1));

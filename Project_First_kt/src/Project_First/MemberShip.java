@@ -175,15 +175,9 @@ public class MemberShip extends JDialog implements ActionListener {
 	   log  = new LoginTest();
 		Object obj = e.getSource();
 		if(obj == jbtn_close) {
-//			dispose();
-//			System.exit(0);
-			log.jf.dispose();
-			log.jf.setVisible(false);
-			
-		}
-		else if (obj == jbtn_close) {
 			this.dispose();
 			log.jf.setVisible(true);
+			
 		}
 		else if (obj == jbtn_equals) {
 			

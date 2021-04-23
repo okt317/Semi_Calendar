@@ -24,9 +24,9 @@ public class ChulGyulButton extends JDialog implements ActionListener{
 	String now = "";
 	
 	SimpleDateFormat format1 = 
-			new SimpleDateFormat("yyyy MM dd hh:mm");
+			new SimpleDateFormat("yyyy MM dd HH:mm");
 	SimpleDateFormat format2 = 
-			new SimpleDateFormat("MM월 dd일 hh시 mm분");
+			new SimpleDateFormat("MM월 dd일 HH시 mm분");
 	
 	Date time = new Date();
 	
