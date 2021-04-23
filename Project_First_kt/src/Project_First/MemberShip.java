@@ -53,20 +53,21 @@ public class MemberShip extends JDialog implements ActionListener {
 
    // 생성자
    public MemberShip() {
-//      initDisplay();
+      initDisplay();
    }
 //   public MemberShip(MembershipEvent mse) {
 //	   this.mse = mse;
 //   }
    public static void main(String[] args) {      
-//	   new MemberShip();
-	   MemberShip ms = new MemberShip();
-	   ms.initDisplay();
+	   new MemberShip();
+//	   MemberShip ms = new MemberShip();
+//	   ms.initDisplay();
    }
    
 
    // 화면처리부
    public void initDisplay() {
+	  JPanel panel = new JPanel();
 	  avatar = new JLabel(new ImageIcon("src\\images\\lion11.png"));
 
 	  jbtn_equals.addActionListener(this);
@@ -97,8 +98,8 @@ public class MemberShip extends JDialog implements ActionListener {
       jbtn_close .	setFont(font);
       jbtn_equals .	setFont(font);
       
-      jp_center.add(avatar);
       jp_center.add(jlb_avatar);
+      jp_center.add(avatar);
       jp_center.add(jbtn_avatar);
       jp_center.add(jlb_id);
       jp_center.add(jtf_id);
@@ -117,6 +118,7 @@ public class MemberShip extends JDialog implements ActionListener {
       jp_south.add(jbtn_close);
       this.add("South", jp_south);
       jsp = new JScrollPane(jp_center);
+//      this.setDefaultCloseOperation(EXIT_ON_CLOSE);
       this.add("Center", jsp);
       this.setTitle("회원가입");
       this.setSize(400, 500);
@@ -220,8 +222,10 @@ public class MemberShip extends JDialog implements ActionListener {
          
          
       }else if (obj == jbtn_avatar) {
-    	  System.out.println(avatar);
-    	  mav = new MemberAvatar();
+//    	  System.out.println(avatar);
+    	  //mav = new MemberAvatar();
+    	  new MemberAvatar(this);
+    	  
     	  
           
       }
