@@ -21,18 +21,30 @@ public class MemberAvatar extends JDialog {
 	
 	MemberShip memberShip;
 	//생성자
+<<<<<<< HEAD
 	public MemberAvatar(MemberShip memberShip) {
 		this.memberShip = memberShip;
 		this.initDisplay();
+=======
+	public MemberAvatar() {
+>>>>>>> refs/remotes/origin/kyungtaek
 	}
 	public MemberAvatar(MembershipEvent mse) {
 		this.mse = mse;
+	}
+	public MemberAvatar(MemberShip ms) {
+		this.ms = ms;
+		this.initDisplay();
 	}
 	//화면처리부
 	public void initDisplay() {
 //		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
+<<<<<<< HEAD
 		mse = new MembershipEvent(this,memberShip);
+=======
+		mse = new MembershipEvent(this, ms);
+>>>>>>> refs/remotes/origin/kyungtaek
 		jp_emoticon.setLayout(gl_emoticon);
 		for(int i=0;i<imgfile.length;i++) {
 			img[i] = new ImageIcon(imgPath+imgfile[i]);
@@ -45,7 +57,10 @@ public class MemberAvatar extends JDialog {
 		this.setLocation(920, 250);
 		this.setSize(600,200);
 		this.setVisible(true);
+<<<<<<< HEAD
 //		System.out.println(ms.avatar);
+=======
+>>>>>>> refs/remotes/origin/kyungtaek
 	}
 //	//메인메소드
 //	public static void main(String[] args) {

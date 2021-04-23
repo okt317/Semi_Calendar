@@ -6,7 +6,9 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.swing.DefaultCellEditor;
 import javax.swing.DefaultListSelectionModel;
@@ -70,9 +72,7 @@ public class ChulGyul extends JFrame implements ActionListener {
 		this.mon_int = mm;
 		this.initDisplay();
 	}
-//	ChulGyul (ChulGyulDao cgd){
-//		this.cgd = cgd;
-//	}
+
 	//화면처리부
 	public void initDisplay(){
 		year_str = Integer.toString(year_int);
@@ -172,68 +172,9 @@ public class ChulGyul extends JFrame implements ActionListener {
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
-//		if(	e.getSource()==jtf_inwon ||
-//			e.getSource()==jbtn_ins){
-//		}////////////// end of if ////////////
 		if(e.getSource()==jbtn_exit){
 			dispose();
 		}
-		/*
-		else if(e.getSource()==jbtn_account){
-			//총점과 석차
-			int[][] imsi = new int[num][2];//총점과 석차가 들어갈 공간
-			for(int i=0;i<num;i++){
-				int tot = Integer.parseInt((String)dtm.getValueAt(i, 2)) 
-				         + Integer.parseInt((String)dtm.getValueAt(i, 3))
-				         + Integer.parseInt((String)dtm.getValueAt(i, 4));
-				float avg = tot / 3.0f;
-				char ch = 0 ;//학점
-				switch((int)(avg / 10)){
-					case 10:
-					case 9:  ch = 'A';  break;
-					case 8:  ch = 'B';  break;
-					case 7:  ch = 'C';  break;
-					case 6:  ch = 'D';  break;
-					default: ch = 'F';
-				}
-				dtm.setValueAt(String.valueOf(tot), i, 5);
-				dtm.setValueAt(String.valueOf(avg), i, 6);
-				dtm.setValueAt(ch + "", i, 7);
-				imsi[i][0] = tot;
-				imsi[i][1] = 1;//석차를 1로 설정
-			}
-			//석차를 매겨줌
-			for(int i=0;i<num; i++){
-				for(int j=0;j<num;j++){
-					if(imsi[i][0] < imsi[j][0]){
-						imsi[i][1]++;
-					}
-				}
-			}
-			for(int i=0;i<num;i++){
-				dtm.setValueAt(String.valueOf(imsi[i][1]), i, 8);
-			}
-			
-		}////////////// end of 처리 버튼 구현 */
-		/*
-		else if(e.getSource()==jbtn_add) {
-		String[][] data = {
-				 {"홍길동","80","75","85"}
-				,{"이성계","90","85","80"}
-				,{"강감찬","70","75","70"}
-		};
-		int a = 0;
-		int b = 0;
-		for(int i=0;i<3;i++){
-			for(int j=0;j<4;j++){
-				a = i;
-				b = j+1;
-				dtm.setValueAt(data[i][j], a, b);
-				
-				}
-			}
-		}
-		*/
 	}////////////////// end of actionPerformed
 
 }

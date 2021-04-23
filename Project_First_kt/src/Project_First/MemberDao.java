@@ -16,6 +16,7 @@ public class MemberDao {
 	ResultSet			rs		= null;
 	DBConnectionMgr dbmgr = null;
 	String load_name = null;
+	int load_avt = 0;
 	String load_memo = null;
 	String load_title = null;
 	public String login(String p_id, String p_pw) {
@@ -43,22 +44,23 @@ public class MemberDao {
 		}
 		return msg;
 	}
-	public String gaip(String p_id, String p_pw, String p_name) {
+	public String gaip(String p_id, String p_pw, String p_name, int avatar) {
 		dbmgr = DBConnectionMgr.getInstance();
 		String msg = "";
 		try {
 			con = dbmgr.getConnection();
-			cstmt = con.prepareCall("{call proc_gaip(?,?,?,?)}");
+			cstmt = con.prepareCall("{call cal_gaip(?,?,?,?,?)}");
 			cstmt.setString(1, p_id);
 			cstmt.setString(2, p_pw);
 			cstmt.setString(3, p_name); 
-			cstmt.registerOutParameter(4, java.sql.Types.VARCHAR);
+			cstmt.setInt(4, avatar); 
+			cstmt.registerOutParameter(5, java.sql.Types.VARCHAR);
 			int result = 0;
 			result = cstmt.executeUpdate();
 			if(result==1) {
-				msg = cstmt.getString(4);
+				msg = cstmt.getString(5);
 			}
-			System.out.println(cstmt.getString(4));
+			System.out.println(cstmt.getString(5));
 		} catch (SQLException se) {
 			
 		} catch (Exception e) {
@@ -68,40 +70,14 @@ public class MemberDao {
 		}
 		return msg;
 	}
-//	public String cal_ins(String p_id, int yy, int mm, int dd
-//						, String memo) {
-//		dbmgr = DBConnectionMgr.getInstance();
-//		String msg = "";
-//		int result = 0;
-//		try {
-//			con = dbmgr.getConnection();
-//			cstmt = con.prepareCall("{call proc_ins(?,?,?,?,?,?)}");
-//			cstmt.setString(1, p_id);
-//			cstmt.setInt(2, yy);
-//			cstmt.setInt(3, mm);
-//			cstmt.setInt(4, dd);
-//			cstmt.setString(5, memo);
-//			cstmt.registerOutParameter(6, java.sql.Types.VARCHAR);
-//			result = cstmt.executeUpdate();
-//			System.out.println(result);
-//			msg = cstmt.getString(6);
-//		} catch (SQLException se) {
-//			
-//		} catch (Exception e) {
-//			// TODO: handle exception
-//		}finally {
-//			dbmgr.freeConnection(con, cstmt);
-//		}
-//		return msg;
-//	}
-	public String cal_ins_sj(String p_id, int yy, int mm, int dd
+	public String cal_ins_upd(String p_id, int yy, int mm, int dd
 			, String memo, String tit) {
 		dbmgr = DBConnectionMgr.getInstance();
 		String msg = "";
 		int result = 0;
 		try {
 			con = dbmgr.getConnection();
-			cstmt = con.prepareCall("{call proc_ins_sj(?,?,?,?,?,?,?)}");
+			cstmt = con.prepareCall("{call cal_ins_upd(?,?,?,?,?,?,?)}");
 			cstmt.setString(1, p_id);
 			cstmt.setInt(2, yy);
 			cstmt.setInt(3, mm);
@@ -127,7 +103,7 @@ public class MemberDao {
 		int result = 0;
 		try {
 			con = dbmgr.getConnection();
-			cstmt = con.prepareCall("{call proc_del(?,?,?,?,?)}");
+			cstmt = con.prepareCall("{call cal_del(?,?,?,?,?)}");
 			cstmt.setString(1, p_id);
 			cstmt.setInt(2, yy);
 			cstmt.setInt(3, mm);
@@ -145,10 +121,10 @@ public class MemberDao {
 		}
 		return msg;
 	}
-	public String load_profile(String p_id) {
+	public void load_profile(String p_id) {
 		dbmgr = DBConnectionMgr.getInstance();
 		String sql = "";
-		sql += "select mem_name from member_calendar";
+		sql += "select mem_name, avatar from member_calendar";
 		sql += " where mem_id=?         ";
 		try {
 			con = dbmgr.getConnection();
@@ -157,6 +133,7 @@ public class MemberDao {
 			rs = pstmt.executeQuery();
 			rs.next();
 			load_name = rs.getString("mem_name");
+			load_avt = rs.getInt("avatar");
 			System.out.println(load_name+"님이 확인되었습니다");
 		} catch (SQLException se) {
 			System.out.println("오류1");
@@ -166,12 +143,12 @@ public class MemberDao {
 		}finally {
 			dbmgr.freeConnection(con, cstmt, rs);
 		}
-		return load_name;
+//		return load_name;
 	}
 	public void load_memo(String p_id, int yy, int mm, int dd) {
 		dbmgr = DBConnectionMgr.getInstance();
 		String sql = "";
-		sql += "select memo,title from calendar2";
+		sql += "select memo,title from calendar";
 		sql += " where mem_id=?         ";
 		sql += " and  year=?              ";
 		sql += " and month=?              ";

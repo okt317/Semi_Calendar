@@ -33,7 +33,7 @@ public class LoginTest implements ActionListener{
    Font font1 = new Font("궁서체",Font.BOLD,18);
    //이미지관련
    JLabel jl_image = null;
-   String imgPath 	 = "C:\\git_Project_First\\Project_First\\Project_First_kt\\src\\Project_First\\";
+   String imgPath 	 = "src\\images\\";
    ImageIcon ig = new ImageIcon (imgPath+"pp.png");//(imgPath + "main.png");
    Image img = ig.getImage();
    Image changeImg = img.getScaledInstance(400, 200, Image.SCALE_SMOOTH);
@@ -130,10 +130,12 @@ public class LoginTest implements ActionListener{
 				}
 				else {
 					yjv = new YeelJungView(md);
-					String name = md.load_profile(mem_id);
+					md.load_profile(mem_id);
+					String name = md.load_name;
+					int avt = md.load_avt;
 					JOptionPane.showMessageDialog(null, name+"님이 로그인 되었습니다");
 					jf.dispose();
-					yjv.initDisplay(name,mem_id);
+					yjv.initDisplay(name,mem_id, avt);
 				}
 			} catch (Exception e2) {
 				e2.printStackTrace();

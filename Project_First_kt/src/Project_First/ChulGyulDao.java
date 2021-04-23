@@ -22,19 +22,19 @@ public class ChulGyulDao {
 	String[] fst = null;
 	String[] lst = null;
 	public String cal_chul(String p_id, int yy, int mm, int dd
-			, String hm) {
+			, String now) {
 		dbmgr = DBConnectionMgr.getInstance();
 		String msg = "";
 		int result = 0;
 		try {
 			con = dbmgr.getConnection();
-			cstmt = con.prepareCall("{call proc_att"
+			cstmt = con.prepareCall("{call cal_chulgyul"
 					+ "(?,?,?,?,?,?)}");
 			cstmt.setString(1, p_id);
 			cstmt.setInt(2, yy);
 			cstmt.setInt(3, mm);
 			cstmt.setInt(4, dd);
-			cstmt.setString(5, hm);
+			cstmt.setString(5, now);
 			System.out.println("여기1");
 			cstmt.registerOutParameter(6, java.sql.Types.VARCHAR);
 			System.out.println("여기2");
@@ -57,11 +57,12 @@ public class ChulGyulDao {
 		System.out.println("getZipCodeList 호출성공 "+yy+" "+mm);
 		ArrayList attendlist = new ArrayList<>();
 		StringBuilder sql = new StringBuilder();
-		sql.append("select year, month, day, first, last ");
-		sql.append(" from ATTENDANCE2                    ");
+		sql.append("select year, month, day, f_time, l_time ");
+		sql.append(" from ATTENDANCE                     ");
 		sql.append(" where mem_id = ?                    ");
 		sql.append(" and year = ?                        ");
 		sql.append(" and month =?                        ");
+		sql.append(" order by day                     ");
 		try {
 		con = dbmgr.getConnection();
 		pstmt = con.prepareStatement(sql.toString());
@@ -88,9 +89,9 @@ public class ChulGyulDao {
 					+rs.getInt("month")+"월 "
 					+rs.getInt("day")+"일";
 			v.add(amu);
-			String amu1 = rs.getString("first");
+			String amu1 = rs.getString("f_time");
 			v1.add(amu1);
-			String amu2 = rs.getString("last");
+			String amu2 = rs.getString("l_time");
 			v2.add(amu2);
 				}
 			ymd = new String[v.size()];

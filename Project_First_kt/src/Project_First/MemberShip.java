@@ -34,7 +34,7 @@ public class MemberShip extends JDialog implements ActionListener {
    JComboBox   	jcb_gender      = new JComboBox(genderList);
    JCheckBox 	checkBox_pw 	= new JCheckBox("비밀번호 보이기");
    JLabel		jlb_avatar		= new JLabel("대표 아바타 설정");
-   JLabel		avatar			= null;
+   JLabel		pic_avatar			= null;
    JButton		jbtn_avatar		= new JButton("아바타 변경");
 //   JButton		jbtn_avatar		= null;
    Font			font 			= new Font("궁서체", 1, 14);
@@ -45,10 +45,13 @@ public class MemberShip extends JDialog implements ActionListener {
    JButton		jbtn_close		= new JButton("닫기");
    JButton		jbtn_equals		= new JButton("중복확인");
    
-   MemberAvatar mav			= null;
-   MembershipEvent mse = null;
+   MemberAvatar 	mav			= null;
+   MembershipEvent 	mse 		= null;
+   LoginTest		log			= null;	
+   MemberDao		md			= null;
    
    int 			gender			= 0;
+   int 			avatar			= 0;
 //   ZipCodeSearch zcs = new ZipCodeSearch(this);
 
    // 생성자
@@ -67,8 +70,12 @@ public class MemberShip extends JDialog implements ActionListener {
 
    // 화면처리부
    public void initDisplay() {
+<<<<<<< HEAD
 	  JPanel panel = new JPanel();
 	  avatar = new JLabel(new ImageIcon("src\\images\\lion11.png"));
+=======
+	   pic_avatar = new JLabel(new ImageIcon("src\\images\\lion11.png"));
+>>>>>>> refs/remotes/origin/kyungtaek
 
 	  jbtn_equals.addActionListener(this);
       jbtn_ins.addActionListener(this);
@@ -76,7 +83,7 @@ public class MemberShip extends JDialog implements ActionListener {
       jbtn_avatar.addActionListener(this);
       jp_center.setLayout(null);
       jlb_avatar.setBounds(145, 20, 150, 20);
-      avatar.setBounds(140, 60, 100, 108);
+      pic_avatar.setBounds(140, 60, 100, 108);
       jbtn_avatar.setBounds(120, 180, 150, 20);
       jlb_id.setBounds(20, 230, 100, 20);
       jbtn_equals.setBounds(250,230,100,20);
@@ -98,6 +105,10 @@ public class MemberShip extends JDialog implements ActionListener {
       jbtn_close .	setFont(font);
       jbtn_equals .	setFont(font);
       
+<<<<<<< HEAD
+=======
+      jp_center.add(pic_avatar);
+>>>>>>> refs/remotes/origin/kyungtaek
       jp_center.add(jlb_avatar);
       jp_center.add(avatar);
       jp_center.add(jbtn_avatar);
@@ -171,50 +182,48 @@ public class MemberShip extends JDialog implements ActionListener {
  /////////////////////  
    @Override
    public void actionPerformed(ActionEvent e) {
-      boolean   isRefused   = false;
-      Object   obj         = e.getSource();
-      
-     if (obj == jbtn_ins) { //등록 누를때        
-        String  id_limit = jtf_id.getText();
-        String  pw_limit = jtf_pw.getText();
-        
-    if ("".equals(jtf_id.getText())  ||
-    		"".equals(jtf_name.getText()) || 
-            "".equals(jtf_nickName.getText()) || 
-            "".equals(jtf_pw.getText())
-                              ) {
-            JOptionPane.showMessageDialog(this, "모든 정보를 입력해주십시오");
-         }
-    else  if(SpecialCharacters(jtf_name.getText())== 1) {
-         JOptionPane.showMessageDialog(this, "이름에 특수문자는 불가합니다.");             
-      }
-    
-    else  if( pw_limit.length() < 4 ||  pw_limit.length() > 10){
-       JOptionPane.showMessageDialog(this, "비밀번호는 4자리 이상, 10자리 이하만 가능 합니다.");       
-    }
-    
-    else  if(id_limit.length() < 2 || id_limit.length() > 10){
-       JOptionPane.showMessageDialog(this, "아이디는 2자리 이상, 10자리 이하만 가능 합니다.");
-    }
-    
-    else  {         
-            if ("남자".equals(jcb_gender.getSelectedItem())) {
-               gender = 0;
-            }
-            else {
-               gender = 1;
-            }
-            if (isRefused != true) {
-               JOptionPane.showMessageDialog(this, "회원가입 성공");
-               this.dispose();
-            }
-            else {
-               JOptionPane.showMessageDialog(this, "중복된 아이디입니다");
-               jtf_id.setText("");
-            }
-         }
-      }///end of ins
+	   log  = new LoginTest();
+		Object obj = e.getSource();
+		if(obj == jbtn_close) {
+			this.dispose();
+			log.jf.setVisible(true);
+			
+		}
+		else if (obj == jbtn_equals) {
+			
+		}else if (obj == jbtn_avatar) {
+			mav = new MemberAvatar(this);	
+		}
+	else if("".equals(jtf_id.getText()) || "".equals(jtf_pw.getText())){
+			JOptionPane.showMessageDialog(this, "입력해 주세요");
+			return;
+			}
+			try {
+			if(obj == jbtn_ins) {
+				System.out.println("실행되나");
+			md = new MemberDao();
+			String mem_id = jtf_id.getText();
+			String mem_pw = jtf_pw.getText();
+			String mem_name = jtf_name.getText();
+			String msg = md.gaip(mem_id, mem_pw, mem_name, avatar);
+			if("아이디가 존재합니다".equals(msg)){
+				JOptionPane.showMessageDialog(this, "중복된 아이디 입니다");
+				return;
+			}
+			else {
+				JOptionPane.showMessageDialog(this, "회원가입 성공","info",JOptionPane.INFORMATION_MESSAGE );
+				this.setVisible(false);
+				log.jf.setVisible(true);
+				}
+			}
+			
+	}
+			
+			catch (Exception e2) {
+		e2.printStackTrace();
+	}
 
+<<<<<<< HEAD
       else if (obj == jbtn_close) {
          this.dispose();
       }
@@ -229,7 +238,54 @@ public class MemberShip extends JDialog implements ActionListener {
     	  
           
       }
+=======
+//      boolean   isRefused   = false;
+//      Object   obj         = e.getSource();
+//      
+//     if (obj == jbtn_ins) { //등록 누를때        
+//        String  id_limit = jtf_id.getText();
+//        String  pw_limit = jtf_pw.getText();
+//        
+//    if ("".equals(jtf_id.getText())  ||
+//    		"".equals(jtf_name.getText()) || 
+//            "".equals(jtf_nickName.getText()) || 
+//            "".equals(jtf_pw.getText())
+//                              ) {
+//            JOptionPane.showMessageDialog(this, "모든 정보를 입력해주십시오");
+//         }
+//    else  if(SpecialCharacters(jtf_name.getText())== 1) {
+//         JOptionPane.showMessageDialog(this, "이름에 특수문자는 불가합니다.");             
+//      }
+//    
+//    else  if( pw_limit.length() < 4 ||  pw_limit.length() > 10){
+//       JOptionPane.showMessageDialog(this, "비밀번호는 4자리 이상, 10자리 이하만 가능 합니다.");       
+//    }
+//    
+//    else  if(id_limit.length() < 2 || id_limit.length() > 10){
+//       JOptionPane.showMessageDialog(this, "아이디는 2자리 이상, 10자리 이하만 가능 합니다.");
+//    }
+//    
+//    else  {         
+//            if ("남자".equals(jcb_gender.getSelectedItem())) {
+//               gender = 0;
+//            }
+//            else {
+//               gender = 1;
+//            }
+//            if (isRefused != true) {
+//               JOptionPane.showMessageDialog(this, "회원가입 성공");
+//               this.dispose();
+//            }
+//            else {
+//               JOptionPane.showMessageDialog(this, "중복된 아이디입니다");
+//               jtf_id.setText("");
+//            }
+//         }
+//      }///end of ins
+
+>>>>>>> refs/remotes/origin/kyungtaek
      
-   }}    
+   }
+}
 
      

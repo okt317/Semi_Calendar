@@ -120,15 +120,15 @@ public class MemberShip_2 extends JDialog implements ActionListener{
 			String mem_id = jtf_id.getText();
 			String mem_pw = jtf_pw.getText();
 			String mem_name = jtf_name.getText();
-			String msg = md.gaip(mem_id, mem_pw, mem_name);
-			if("아이디가 존재합니다".equals(msg)){
-				JOptionPane.showMessageDialog(this, "중복된 아이디 입니다");
-				return;
-			}
-			else {
-				JOptionPane.showMessageDialog(this, "회원가입 성공","info",JOptionPane.INFORMATION_MESSAGE );
-				this.setVisible(false);
-				}
+//			String msg = md.gaip(mem_id, mem_pw, mem_name);
+//			if("아이디가 존재합니다".equals(msg)){
+//				JOptionPane.showMessageDialog(this, "중복된 아이디 입니다");
+//				return;
+//			}
+//			else {
+//				JOptionPane.showMessageDialog(this, "회원가입 성공","info",JOptionPane.INFORMATION_MESSAGE );
+//				this.setVisible(false);
+//				}
 			}
 			
 	}

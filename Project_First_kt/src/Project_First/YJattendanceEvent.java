@@ -68,7 +68,7 @@ public class YJattendanceEvent implements ActionListener, ItemListener {
 				yjat.title = yjat.jtf_title.getText()+" ";
 				System.out.println(yjat.ID+" "+yjat.YY+" "
 						+yjat.MM+" "+yjat.DD+" "+yjat.memo+" "+yjat.title);
-				String msg = md.cal_ins_sj(yjat.ID,yjat.YY,yjat.MM
+				String msg = md.cal_ins_upd(yjat.ID,yjat.YY,yjat.MM
 										,yjat.DD,yjat.memo, yjat.title);
 				System.out.println(msg);
 				if("저장".equals(label)) {
