@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -37,7 +38,7 @@ public class MemberShip extends JDialog implements ActionListener {
    JLabel		pic_avatar			= null;
    JButton		jbtn_avatar		= new JButton("아바타 변경");
 //   JButton		jbtn_avatar		= null;
-   Font			font 			= new Font("궁서체", 1, 14);
+   Font			font 			= new Font("새굴림", 1, 14);
  
    JScrollPane	jsp				= null;
    JPanel		jp_south		= new JPanel();
@@ -52,6 +53,10 @@ public class MemberShip extends JDialog implements ActionListener {
    
    int 			gender			= 0;
    int 			avatar			= 0;
+   String mem_id				= null;
+   String mem_pw 				= null;
+   String mem_name 				= null;
+
 //   ZipCodeSearch zcs = new ZipCodeSearch(this);
 
    // 생성자
@@ -70,12 +75,7 @@ public class MemberShip extends JDialog implements ActionListener {
 
    // 화면처리부
    public void initDisplay() {
-<<<<<<< HEAD
-	  JPanel panel = new JPanel();
-	  avatar = new JLabel(new ImageIcon("src\\images\\lion11.png"));
-=======
 	   pic_avatar = new JLabel(new ImageIcon("src\\images\\lion11.png"));
->>>>>>> refs/remotes/origin/kyungtaek
 
 	  jbtn_equals.addActionListener(this);
       jbtn_ins.addActionListener(this);
@@ -104,13 +104,12 @@ public class MemberShip extends JDialog implements ActionListener {
       jbtn_ins .	setFont(font);
       jbtn_close .	setFont(font);
       jbtn_equals .	setFont(font);
+      jlb_avatar.	setFont(font);
+      jbtn_avatar.	setFont(font);
+      jlb_gender.	setFont(font);
       
-<<<<<<< HEAD
-=======
       jp_center.add(pic_avatar);
->>>>>>> refs/remotes/origin/kyungtaek
       jp_center.add(jlb_avatar);
-      jp_center.add(avatar);
       jp_center.add(jbtn_avatar);
       jp_center.add(jlb_id);
       jp_center.add(jtf_id);
@@ -129,11 +128,11 @@ public class MemberShip extends JDialog implements ActionListener {
       jp_south.add(jbtn_close);
       this.add("South", jp_south);
       jsp = new JScrollPane(jp_center);
-//      this.setDefaultCloseOperation(EXIT_ON_CLOSE);
       this.add("Center", jsp);
       this.setTitle("회원가입");
       this.setSize(400, 500);
       this.setLocation(500, 200);
+//      this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
       this.setVisible(true);
      // jtf_pw.setEchoChar('*');     
    
@@ -183,62 +182,61 @@ public class MemberShip extends JDialog implements ActionListener {
    @Override
    public void actionPerformed(ActionEvent e) {
 	   log  = new LoginTest();
+	   md = new MemberDao();
 		Object obj = e.getSource();
 		if(obj == jbtn_close) {
 			this.dispose();
-			log.jf.setVisible(true);
+//			log.jf.setVisible(true);
 			
 		}
 		else if (obj == jbtn_equals) {
+				mem_id = jtf_id.getText();
+				String msg = md.gaip_check(mem_id);
+				if("중복된 아이디".equals(msg)){
+					JOptionPane.showMessageDialog(this, "중복된 아이디 입니다");
+					mem_id = null;
+					return;
+				}
+				else if(mem_id.length() < 3 || mem_id.length() > 10) {
+					JOptionPane.showMessageDialog(this, "아이디는 3자리 이상, 10자리 이하만 가능 합니다");
+					mem_id = null;
+					return;
+				}
+				else {
+					JOptionPane.showMessageDialog(this, "사용 가능한 아이디 입니다");
+					return;
+				}
 			
 		}else if (obj == jbtn_avatar) {
 			mav = new MemberAvatar(this);	
 		}
-	else if("".equals(jtf_id.getText()) || "".equals(jtf_pw.getText())){
+	else if("".equals(jtf_id.getText()) || "".equals(jtf_pw.getText())
+			 || "".equals(jtf_name.getText())){
 			JOptionPane.showMessageDialog(this, "입력해 주세요");
 			return;
 			}
 			try {
-			if(obj == jbtn_ins) {
-				System.out.println("실행되나");
-			md = new MemberDao();
-			String mem_id = jtf_id.getText();
-			String mem_pw = jtf_pw.getText();
-			String mem_name = jtf_name.getText();
-			String msg = md.gaip(mem_id, mem_pw, mem_name, avatar);
-			if("아이디가 존재합니다".equals(msg)){
-				JOptionPane.showMessageDialog(this, "중복된 아이디 입니다");
-				return;
-			}
-			else {
-				JOptionPane.showMessageDialog(this, "회원가입 성공","info",JOptionPane.INFORMATION_MESSAGE );
-				this.setVisible(false);
-				log.jf.setVisible(true);
+				if(obj == jbtn_ins) {
+					System.out.println(mem_id);
+					System.out.println(jtf_id.getText());
+					if((mem_id!=null) && mem_id.equals(jtf_id.getText())) {
+						String mem_pw = jtf_pw.getText();
+						String mem_name = jtf_name.getText();
+						md.gaip(mem_id, mem_pw, mem_name, avatar);
+						JOptionPane.showMessageDialog(this, "회원가입이 완료되였습니다");
+						this.setVisible(false);
+						log.jf.setVisible(true);
+					}
+					else {
+						JOptionPane.showMessageDialog(this, "중복 확인 먼저 해주십시오");
+					}
 				}
 			}
 			
-	}
-			
 			catch (Exception e2) {
-		e2.printStackTrace();
-	}
+				e2.printStackTrace();
+			}
 
-<<<<<<< HEAD
-      else if (obj == jbtn_close) {
-         this.dispose();
-      }
-      else if (obj == jbtn_equals) {
-         
-         
-      }else if (obj == jbtn_avatar) {
-//    	  System.out.println(avatar);
-    	  //mav = new MemberAvatar();
-    	  new MemberAvatar(this);
-    	  
-    	  
-          
-      }
-=======
 //      boolean   isRefused   = false;
 //      Object   obj         = e.getSource();
 //      
@@ -283,7 +281,6 @@ public class MemberShip extends JDialog implements ActionListener {
 //         }
 //      }///end of ins
 
->>>>>>> refs/remotes/origin/kyungtaek
      
    }
 }

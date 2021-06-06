@@ -32,7 +32,7 @@ public class LoginForm extends JDialog implements ActionListener {
 					new ImageIcon(imgPath+"confirm.png"));
 //	TalkDao tDao = new TalkDao();
 
-	MemberShip_2 ms = null;
+	MemberShip_old ms = null;
 	
 	String 				nickName= null;//닉네임 등록
 	String 				amu1= null;//닉네임 등록
@@ -80,7 +80,7 @@ public class LoginForm extends JDialog implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
 		if(jbtn_join==obj) {
-			ms = new MemberShip_2();
+			ms = new MemberShip_old();
 				ms.initDisplay();
 //				this.dispose();
 			}

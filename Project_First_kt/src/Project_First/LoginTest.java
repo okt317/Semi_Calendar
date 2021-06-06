@@ -1,7 +1,6 @@
 package Project_First; //04.04
 
 import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,20 +20,20 @@ public class LoginTest implements ActionListener{
    JPanel jp 	= new JPanel();//페널 
    JButton btn_login = new JButton("입장"); //버튼
    JButton btn_new	 = new JButton("신규");
-   JLabel name_label = new JLabel("출결관리 프로젝트");
+   JLabel name_label = new JLabel("일정관리 프로그램");
    JLabel pw_label   = new JLabel("비밀번호"); // 비멀번호는 라벨이름
    JLabel id_label 	 = new JLabel("아이디"); //라벨은 아이디
-   JTextField id_jtf 			= new JTextField("test"); // 한줄 입력창 만들기
+   JTextField id_jtf 			= new JTextField("master"); // 한줄 입력창 만들기
    JPasswordField passwordtext  = new JPasswordField("123"); //  암호값 가져오기
-   public JCheckBox checkBox_pw = new JCheckBox("비밀번호 보이기");
+   JCheckBox checkBox_pw = new JCheckBox("비밀번호 보이기");
    String msg = "";
     
-   Font font = new Font("궁서체",Font.BOLD,15);
-   Font font1 = new Font("궁서체",Font.BOLD,18);
+   Font font = new Font("새굴림",Font.BOLD,15);
+   Font font_title = new Font("새굴림",Font.BOLD,20);
    //이미지관련
    JLabel jl_image = null;
    String imgPath 	 = "src\\images\\";
-   ImageIcon ig = new ImageIcon (imgPath+"pp.png");//(imgPath + "main.png");
+   ImageIcon ig = new ImageIcon (imgPath+"niniz1.png");//(imgPath + "main.png");
    Image img = ig.getImage();
    Image changeImg = img.getScaledInstance(400, 200, Image.SCALE_SMOOTH);
    ImageIcon changeIcon = new ImageIcon(changeImg);
@@ -57,7 +56,7 @@ public class LoginTest implements ActionListener{
 //            }
       public void initDisplay() {
 
-      jf.setTitle("출결 관리 ");
+      jf.setTitle("KOSMO 사이드 프로젝트");
       jf.add(jp); //패널을 넣는다
       jp.add(name_label);
       jp.add(id_label); // 라벨을 넣는다 패널에
@@ -72,7 +71,6 @@ public class LoginTest implements ActionListener{
       btn_new.addActionListener(this);
       checkBox_pw.addActionListener(this);
       name_label.setBounds(100,25,180,50);
-      name_label.setFont(font1);
       id_label.setBounds(70, 90, 80, 25); //절대위치 지정
       pw_label.setBounds(70,120,80,25);//절대위치 지정  비밀번호 라벨
       btn_new.setBounds(80,200,80,25);
@@ -89,7 +87,8 @@ public class LoginTest implements ActionListener{
       btn_new.setFont(font);
       pw_label .setFont(font);
       id_label.setFont(font);
-//      name_label.setFont(font);
+      checkBox_pw.setFont(font);
+      name_label.setFont(font_title);
    ///////////////////////
       jl_image = new JLabel();
       jl_image.setIcon(changeIcon);
@@ -149,6 +148,6 @@ public class LoginTest implements ActionListener{
          passwordtext.setEchoChar('*');      
      
          }
-    }
+   }
 
 }

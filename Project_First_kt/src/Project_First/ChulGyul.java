@@ -26,10 +26,6 @@ import javax.swing.table.TableColumn;
 
 public class ChulGyul extends JFrame implements ActionListener {
 	//선언부
-//	JLabel jlb_inwon = 
-//			new JLabel ("ID : ",JLabel.RIGHT);
-//	JTextField jtf_inwon = new JTextField(15);
-//	JButton jbtn_ins = new JButton("입력");
 	JButton jbtn_exit = new JButton("나가기");
 //	JPanel jp1 = new JPanel();
 	JPanel jp2 = new JPanel();
@@ -54,6 +50,7 @@ public class ChulGyul extends JFrame implements ActionListener {
 	JTextField jtf = null;
 	JTextField jtf1 = null;
 	JTextField jtf2 = null;
+	Font 	font 	= new Font("새굴림",Font.BOLD,15);
 
 	String name = null;
 	String ID = null;
@@ -84,14 +81,16 @@ public class ChulGyul extends JFrame implements ActionListener {
 		jlb_month = new JLabel(Integer.toString(mon_int));
 		jlb_6 	  = new JLabel("월 출석현황 : ");
 		jlb_count = new JLabel();
-//		jtf_inwon.addActionListener(this);
-//		jbtn_ins.addActionListener(this);
+		jlb_name  .setFont(font); 
+		jlb_2 	  .setFont(font); 
+		jlb_year  .setFont(font); 
+		jlb_4 	  .setFont(font); 
+		jlb_month .setFont(font); 
+		jlb_6 	  .setFont(font); 
+		jlb_count .setFont(font); 
+		
 		jbtn_exit.addActionListener(this);
-//		jp1.setLayout(new FlowLayout());
 		jp2.setLayout(new FlowLayout());
-//		jp1.add(jlb_inwon);
-//		jp1.add(jtf_inwon);
-//		jp1.add(jbtn_ins);
 		jp2.add(jlb_name);
 		jp2.add(jlb_2);
 		jp2.add(jlb_year);
@@ -100,9 +99,9 @@ public class ChulGyul extends JFrame implements ActionListener {
 		jp2.add(jlb_6);
 		jp2.add(jlb_count);
 		jp2.add(jbtn_exit);
-//		this.add("North",jp1);
 		this.add("South",jp2);
 		this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
+//		this.setDefaultLookAndFeelDecorated(true);
 		this.setTitle("출결관리");
 		this.setSize(500,250);
 		this.setLocation(700, 250);
@@ -167,8 +166,6 @@ public class ChulGyul extends JFrame implements ActionListener {
 	//메인메소드
 	public static void main(String[] args) {
 		JFrame.setDefaultLookAndFeelDecorated(true);
-//		ChulGyul sja = new ChulGyul();
-//		sja.initDisplay();
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {

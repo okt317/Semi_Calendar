@@ -20,7 +20,7 @@ public class YeelJungEvent implements ActionListener {
 	}
 	
 	public YeelJungEvent(YJattendance yja) {
-		this.yja=yja;
+		this.yja = yja;
 	}
 	
 	@Override
@@ -37,6 +37,7 @@ public class YeelJungEvent implements ActionListener {
 				yjv.year--;
 			}
 			yjv.RefreshDate();
+			yjv.YeelJung_Load();
 		}
 
 		if (obj == yjv.jbtn_right) {
@@ -47,6 +48,7 @@ public class YeelJungEvent implements ActionListener {
 				yjv.year++;
 			}
 			yjv.RefreshDate();
+			yjv.YeelJung_Load();
 
 		}
 		if (obj == yjv.jbtn_search) {
@@ -54,22 +56,22 @@ public class YeelJungEvent implements ActionListener {
 		}
 		
 		if (obj == yjv.jbtn_in) {
-			System.out.println("출근");
-			new ChulGyulButton(yjv.ID);
+			new ChulGyulButton(yjv.ID, yjv);
 		}
 		
 		
 		if (obj == yjv.jbtn_attendance) {
-			System.out.println(yjv.ID+" "+yjv.name+" "+ yjv.year+" "+yjv.month);
+//			System.out.println(yjv.ID+" "+yjv.name+" "+ yjv.year+" "+yjv.month);
 			cg = new ChulGyul(yjv.ID,yjv.name, yjv.year, yjv.month);
 		}
 		for(int i=0;i<yjv.jbtn_nalja.length;i++) {
 			
 			if (obj == yjv.jbtn_nalja[i]) {
 				date = i-yjv.dayweek+2;
-				System.out.println(yjv.month+"월"+date+"일 일정 오픈");
-				YJattendance yjt= new YJattendance(yjv.ID,yjv.year,yjv.month,date);
-				
+//				System.out.println(yjv.month+"월"+date+"일 일정 오픈");
+				YJattendance yjt = new YJattendance(yjv.ID,yjv.year
+													,yjv.month,date
+													,this,yjv);
 			}
 		}
 		

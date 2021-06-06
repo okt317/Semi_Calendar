@@ -17,7 +17,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 
-public class MemberShip_2 extends JDialog implements ActionListener{
+public class MemberShip_old extends JDialog implements ActionListener{
 	//선언부
 	JPanel jp_center = new JPanel();
 	JLabel jlb_id = new JLabel("아이디");

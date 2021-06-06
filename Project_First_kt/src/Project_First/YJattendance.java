@@ -33,7 +33,8 @@ public class YJattendance extends JFrame {
 	JLabel jl_body 	= null;
 	JTextField jtf_title 	= null;
 	JTextArea jta_naeyoung 	= null;
-	Font font = new Font("돋움체",Font.BOLD,15);
+	Font font = new Font("새굴림",Font.BOLD,15);
+	Font font_big = new Font("새굴림",Font.BOLD,20);
 	//체크박스
 	JCheckBox[] jcb_color = new JCheckBox[4];
 	String a = "업무";
@@ -59,31 +60,36 @@ public class YJattendance extends JFrame {
 	//class 인스턴스화
 	YeelJungView yjv 	= null;
 	YeelJungEvent yje 	= null;
+	YeelJungEvent yje2 	= null;
 	LoginForm log_form = null;
 	MemberDao md = null;
 	YJattendanceEvent yjatEvent = null; 
 //	public YJattendance(MemberDao md) {
 //		this.md = md;
 //	}
-	public YJattendance (String id,int yy, int mm, int dd) {
+	public YJattendance (String id,int yy, int mm, int dd
+						,YeelJungEvent yje,YeelJungView yjv) {
 		this.ID = id;
 		this.YY = yy;
 		this.MM = mm;
 		this.DD = dd;
+		this.yjv = yjv;
 		yje = new YeelJungEvent(this);
 		md = new MemberDao();
 		md.load_memo(ID,YY,MM,DD);
 		initDisplay();
 	}
 	
-//	public YJattendance () {
-//		yje = new YeelJungEvent(this);
-//		initDisplay();
+
+//	public YJattendance(YeelJungEvent yje2,YeelJungView yjv ) {
+//		this.yje2 = yje2;
+//		this.yjv = yjv;
+//		// TODO Auto-generated constructor stub
 //	}
 
 	private void initDisplay() {
-		jl_title 	= new JLabel(" 제목");
-		jl_body 	= new JLabel(" 내용");
+		jl_title 	= new JLabel("   제목");
+		jl_body 	= new JLabel("   내용");
 		jtf_title	= new JTextField();
 		jbtn_new 	= new JButton("입력");
 		jbtn_sav 	= new JButton();
@@ -102,7 +108,7 @@ public class YJattendance extends JFrame {
 		jp_button.add(jbtn_sav);
 		jp_button.add(jbtn_del);
 		jp_button.add(jbtn_cls);
-		yjatEvent = new YJattendanceEvent(this);
+		yjatEvent = new YJattendanceEvent(this, yjv);
 		
 		  for (int i = 0; i < jcb_color.length; i++) {
 			  jcb_color[i] = new JCheckBox(col[i]);
@@ -119,8 +125,13 @@ public class YJattendance extends JFrame {
 		jta_naeyoung.setBackground(Color.white);
 		jta_naeyoung.setEditable(false);
 		jtf_title.setEditable(false);
-		jl_title.setFont(font);
-		jl_body.setFont(font);
+		jbtn_new.setFont(font);
+		jbtn_sav.setFont(font);
+		jbtn_del.setFont(font);
+		jbtn_cls.setFont(font);
+		jtf_title.setFont(font);
+		jl_title.setFont(font_big);
+		jl_body. setFont(font_big);
 		jl_body.setBackground(Color.pink);
 		jtf_title.setBackground(Color.white);
 		jp_north.add(jp_color);
@@ -137,12 +148,14 @@ public class YJattendance extends JFrame {
 		this.setSize(500, 500);
 		this.setLocation(650,250);
 		this.setVisible(true);
-		if(md.load_memo != null) {
+		if(md.load_memo != null||
+			md.load_title != null) {
 			System.out.println(md.load_memo);
 			jta_naeyoung.setText(md.load_memo);
 			jtf_title.setText(md.load_title);
 		}
-		if(jta_naeyoung.getText().trim().length()==0){
+		if(jta_naeyoung.getText().trim().length()==0
+			&&jtf_title.getText().trim().length()==0){
 			jbtn_sav.setText("저장");
 		}
 		else {
@@ -177,7 +190,7 @@ public class YJattendance extends JFrame {
 		
 	}
 	public static void main(String[] args) {
-		new YJattendance("test",2021,4,2);
+//		new YJattendance("test",2021,4,2);
 	}
 
 	public JCheckBox[] getJcb_color() {

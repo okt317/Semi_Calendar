@@ -3,14 +3,18 @@ package Project_First;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.Calendar;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Vector;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -39,6 +43,7 @@ public class YeelJungView extends JFrame {
 	JButton[]		jbtn_nalja		= new JButton[42];
 	String[]		str_yooill		= { "일", "월", "화", "수", "목", "금", "토" };
 	Calendar		cal				= Calendar.getInstance();
+	Font 			font 			= new Font("새굴림",Font.BOLD,15);
 	
 	//사이드
 	JPanel			jp_side			= new JPanel(new GridLayout(2,1));
@@ -49,11 +54,10 @@ public class YeelJungView extends JFrame {
 	JLabel			jlb_name		= null;
 	JButton			jbtn_in			= new JButton("출근");
 	JButton			jbtn_attendance	= new JButton("출결");
-//	JLabel			avatar			= new JLabel(new ImageIcon("src\\images\\lion11.png"));
 	JLabel			avatar			= null;
 	
 	JPanel			jp_plan			= new JPanel(null);
-	JLabel			jlb_plan		= null;
+	JLabel			jlb_plan		= new JLabel("이번 달 일정");
 	DefaultTableModel 	dtm = null;
 	JTable				jtb = null;
 	JScrollPane			jsp = null;
@@ -68,30 +72,24 @@ public class YeelJungView extends JFrame {
 	String	memo	= null;
 	int avt = 0;
 	int dayweek = 0;
-//	int		yy		= 0;
-//	int		mm		= 0;
-//	int		dd		= 0;
+	int i = 0;
+	String cols[] = {"날짜","제목"};
 	//인스턴스화
 	YeelJungEvent yje 	= null;
 	TimeServer 	  ts 	= null;
 	TimeClient 	  tc 	= null;
 	MemberDao 	  md 	= null;
 	
-//	public YeelJungView() {
-//	yje = new YeelJungEvent(this);
-//		initDisplay();
-//	}
 	public YeelJungView() {}
 	public YeelJungView(MemberDao md) {
 		this.md = md;
 	}
-	//
 	
 	public void initDisplay(String name, String mem_id, int avt) {
 		this.avt = avt;
 		this.name = name;
 		this.ID = mem_id;
-		System.out.println(avt+" "+name+" "+ID);
+//		System.out.println(avt+" "+name+" "+ID);
 		yje = new YeelJungEvent(this);
 		ts = new TimeServer();
 		tc = new TimeClient();
@@ -101,7 +99,7 @@ public class YeelJungView extends JFrame {
 		jp_up.add(jbtn_right);
 		jp_up.add(jlb_void2);
 //		jp_up.add(jbtn_search);
-
+		jlb.setFont(font);
 		for (int i = 0; i < 42; i++) {
 			jbtn_nalja[i] = new JButton("" + (i + 1));
 			jbtn_nalja[i].addActionListener(yje);
@@ -110,6 +108,7 @@ public class YeelJungView extends JFrame {
 
 		for (int i = 0; i < str_yooill.length; i++) {
 			jlb2 = new JLabel(str_yooill[i]);
+			jlb2.setFont(font);
 			jp_up2.add(jlb2);
 			jlb2.setHorizontalAlignment(JLabel.CENTER);
 
@@ -156,21 +155,10 @@ public class YeelJungView extends JFrame {
 		jp_profile.add("North",jlb_profile);
 		jp_profile.add("South",jp_side_btt);
 		jp_profile.add("Center",jp_Center);
-		String cols[] = {"날짜","제목"};
-		dtcm = new DefaultTableColumnModel();
-		dtm = new DefaultTableModel(new Object[13][2],cols);
-		jtb = new JTable(dtm);
-		tc1 = new TableColumn(1,40);
-		tc2 = new TableColumn(2,50);
-		jsp = new JScrollPane(jtb);
-//		dtcm.addColumn(tc1);
-//		dtcm.addColumn(tc2);
 		
-		jsp.setBounds(10, 30, 250, 250);
-		jlb_plan = new JLabel("이번 달 일정");
+		
 		jlb_plan.setBounds(90,0,100,20);
 		jp_plan.add(jlb_plan);
-		jp_plan.add(jsp);
 		
 		jp_side.add(jp_profile);
 		jp_side.add(jp_plan);
@@ -189,13 +177,20 @@ public class YeelJungView extends JFrame {
 		month = cal.get(Calendar.MONTH) + 1;
 		nowMonth = month;
 		today = cal.get(Calendar.DATE);
+		
+		YeelJung_Load();
 		RefreshDate();
+		jlb_profile    	.setFont(font);
+		jlb_name       	.setFont(font);
+		jbtn_in        	.setFont(font);
+		jbtn_attendance	.setFont(font);
+		jlb_plan		.setFont(font);
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setTitle("일정관리");
 		this.setSize(900,500);
 		this.setLocation(510, 250);
 		this.setVisible(true);
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-	}
+	}//end of init
 
 	void RefreshDate() {
 
@@ -214,8 +209,6 @@ public class YeelJungView extends JFrame {
 		dayweek = dayOfWeek;
 		int	v			= 0;
 
-//		System.out.println(end);
-//		System.out.println(dayOfWeek);
 		
 		for (int i = 1; i <= end; i++) {
 
@@ -235,28 +228,51 @@ public class YeelJungView extends JFrame {
 			}
 
 			jbtn_nalja[(v + i - 1)].setText(String.valueOf(i));
-
+			jbtn_nalja[(v + i - 1)].setFont(font);
 			dayOfWeek++;
 		}
 
 		for (int i = 0; i < 42 - (v + end); i++) {
 			jbtn_nalja[v + end + i].setVisible(false);
 		}
-//		System.out.println(v);
-//		System.out.println(dayweek);
-	}
-		
-//		if (month == nowMonth) {
-//
-//			for (int i = 1; i < today; i++) {
-//				jbtn_nalja[i].setEnabled(false);
-//			}//
-//		}
-//	}
+	}//end of refreshdate
 	
+	void create_table() {
+		dtcm = new DefaultTableColumnModel();
+		dtm = new DefaultTableModel(new Object[31][2],cols);
+		jtb = new JTable(dtm);
+		tc1 = new TableColumn(1,40);
+		tc2 = new TableColumn(2,50);
+		jsp = new JScrollPane(jtb);
+		jsp.setBounds(10, 30, 250, 250);
+		jp_plan.add(jsp);
+	}
+	
+	public void YeelJung_Load() {
+		create_table();
+//		dtm = new DefaultTableModel(new Object[31][2],cols);
+		md = new MemberDao();
+		List<Map<String,Object>> YJList = md.getYeelJungList(ID, year, month);
+		Iterator<Map<String, Object>> iter = YJList.iterator();
+		Object keys[] = null;
+		int i = 0;
+		while(iter.hasNext()){
+			System.out.println(i);
+			Map<String, Object> data = iter.next();
+//			System.out.println(data.get(key()));
+			keys = data.keySet().toArray();
+//			System.out.println(keys[0]+" "+keys[1]+" ");
+//			System.out.println(data.get(keys[0])+" "+data.get(keys[1])+" ");
+//			System.out.println("  ");
+			Vector oneRow = new Vector();
+			dtm.setValueAt(data.get(keys[1]), i, 0);
+			dtm.setValueAt(data.get(keys[0]), i, 1);
+			i++;
+		}
+	}	
 	public static void main(String[] args) {
 		YeelJungView a = new YeelJungView();
-		a.initDisplay("강찬영", "test", 0);
+		a.initDisplay("오경택", "master", 1);
 		
 	}
 }

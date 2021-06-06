@@ -6,6 +6,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import java.util.Vector;
 
 import util.DBConnectionMgr;
@@ -21,6 +25,8 @@ public class ChulGyulDao {
 	String[] ymd = null;
 	String[] fst = null;
 	String[] lst = null;
+	String[] ymd2 = null;
+	String[] title = null;
 	public String cal_chul(String p_id, int yy, int mm, int dd
 			, String now) {
 		dbmgr = DBConnectionMgr.getInstance();
@@ -35,12 +41,9 @@ public class ChulGyulDao {
 			cstmt.setInt(3, mm);
 			cstmt.setInt(4, dd);
 			cstmt.setString(5, now);
-			System.out.println("여기1");
 			cstmt.registerOutParameter(6, java.sql.Types.VARCHAR);
-			System.out.println("여기2");
 			result = cstmt.executeUpdate();
-			System.out.println("여기3");
-			System.out.println(result);
+//			System.out.println(result);
 			msg = cstmt.getString(6);
 		} catch (SQLException se) {
 			System.out.println("오류1");
@@ -110,7 +113,8 @@ public class ChulGyulDao {
 				}
 		return attendlist;
 	}
-	
+
+
 	public static void main(String[] args) {
 		ChulGyulDao cgd = new ChulGyulDao();
 //		md.cal_load2("test", 21, 3, 11);

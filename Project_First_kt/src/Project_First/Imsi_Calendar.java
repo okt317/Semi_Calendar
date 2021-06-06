@@ -124,11 +124,10 @@ public Imsi_Calendar(MemberDao_old md) {
 		
 	}
 
-//	public static void main(String[] args) {
-//		new Imsi_Calendar();
-//		
-
-//	}
+	public static void main(String[] args) {
+		new Imsi_Calendar();
+		
+	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
